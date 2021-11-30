@@ -18,8 +18,15 @@ def courses(request):
             for course in courses)
     return HttpResponse(s)
 
-def course(request, id):
+def course(request, id,method=['GET']):
     course = Course.objects.get(id=id)
     s = 'ID: {}</br>Name: {}</br>发布时间：{}</br>学生人数：{}'.format(
             course.id, course.name, course.pub_date, course.stu_number)
     return HttpResponse(s)
+
+def login(request, method=['POST']):
+    name = request.POST.get('name')
+    password = request.POST.get('password')
+    if name == 'shiyanlou' and password=='hello':
+        return HttpResponse('登录成功')
+    return render(request, 'learn/login.html')
